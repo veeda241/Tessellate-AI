@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE / agent local cache (never commit)
+.qoder/
+
+# Generated data assets (reproducible via python -m core.pipeline / core.train)
+data/fastf1_cache/
+data/historical_sc_features.csv
+data/live_state_bridge.json
+data/live_state_bridge.json.tmp
+data/mining_run.log
+
+# CatBoost training telemetry artifacts (written to CWD on fit)
+catboost_info/
+
+# Model binaries (regenerate via python -m core.train)
+models/*.cbm
+models/*.onnx
+
+# Keep the schema metadata committed
+!models/model_metadata.json
+
+# Scratch under docs, but KEEP the committed showcase screenshots (PNGs render on GitHub)
+docs/screenshots/*
+!docs/screenshots/*.png

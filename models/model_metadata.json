@@ -1,0 +1,51 @@
+{
+    "features": [
+        "track_id",
+        "laps_remaining",
+        "current_position",
+        "tire_age",
+        "tire_compound",
+        "gap_ahead",
+        "gap_behind",
+        "driver_pace_index",
+        "will_pit"
+    ],
+    "cat_features": [
+        "track_id",
+        "tire_compound"
+    ],
+    "params": {
+        "iterations": 400,
+        "learning_rate": 0.05,
+        "depth": 6,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "verbose": 100
+    },
+    "cv_scheme": "GroupKFold(3) by track_id (unseen-circuit)",
+    "holdout_rmse_positions": 2.019,
+    "holdout_mae_positions": 1.48,
+    "baseline_mae_positions": 2.464,
+    "holdout_rmse": 2.019,
+    "holdout_mae": 1.48,
+    "total_training_rows": 12000,
+    "n_circuits": 20,
+    "feature_importance": {
+        "track_id": 3.321,
+        "laps_remaining": 3.315,
+        "current_position": 66.216,
+        "tire_age": 3.404,
+        "tire_compound": 1.558,
+        "gap_ahead": 0.139,
+        "gap_behind": 1.028,
+        "driver_pace_index": 9.472,
+        "will_pit": 11.547
+    },
+    "versions": {
+        "catboost": "1.2.10",
+        "fastf1": "3.9.0",
+        "python": "3.11.6"
+    },
+    "trained_at": "2026-10-29T18:22:14.612421+00:00",
+    "serving": "catboost-native"
+}

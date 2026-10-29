@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tessellate AI — F1 Counterfactual Pit Wall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">▦</span>
+      <div>
+        <h1>TESSELLATE&nbsp;AI</h1>
+        <p>F1 Counterfactual Pit Strategy Evaluator</p>
+      </div>
+    </div>
+    <div id="conn" class="conn">
+      <span class="dot"></span><span id="conn-text">connecting…</span>
+    </div>
+  </header>
+
+  <div class="metrics-strip">
+    <div class="mini"><span class="k">Model</span><span class="v" id="m-version">—</span></div>
+    <div class="mini"><span class="k">Holdout RMSE</span><span class="v" id="m-rmse">—</span></div>
+    <div class="mini"><span class="k">CV MAE</span><span class="v" id="m-mae">—</span></div>
+    <div class="mini"><span class="k">Training rows</span><span class="v" id="m-rows">—</span></div>
+    <div class="mini"><span class="k">Circuits</span><span class="v" id="m-tracks">—</span></div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="manual">🎛️ Manual Snapshot Evaluation</button>
+    <button class="tab" data-tab="live">📡 Live Pit Wall Feed</button>
+  </nav>
+
+  <main>
+    <!-- ── MANUAL ── -->
+    <section id="manual" class="panel active">
+      <div class="grid-2">
+        <div class="card form-card">
+          <h2>Race Snapshot</h2>
+          <label>Circuit
+            <select id="f-track"></select>
+          </label>
+          <div class="row">
+            <label>Laps remaining
+              <input id="f-laps" type="number" min="1" max="50" value="15" />
+            </label>
+            <label>Current position
+              <input id="f-pos" type="number" min="1" max="20" value="6" />
+            </label>
+          </div>
+          <div class="row">
+            <label>Tyre age (laps)
+              <input id="f-age" type="number" min="0" max="60" value="16" />
+            </label>
+            <label>Compound
+              <select id="f-compound">
+                <option>SOFT</option><option>MEDIUM</option><option>HARD</option>
+              </select>
+            </label>
+          </div>
+          <details class="adv">
+            <summary>Advanced spatial context</summary>
+            <div class="row">
+              <label>Gap ahead (s)
+                <input id="f-gapA" type="number" step="0.1" min="0" value="1.0" />
+              </label>
+              <label>Gap behind (s)
+                <input id="f-gapB" type="number" step="0.1" min="0" value="1.0" />
+              </label>
+            </div>
+            <label>Driver pace index (median clean-air lap, s)
+              <input id="f-pace" type="number" step="0.1" min="60" max="120" value="90.0" />
+            </label>
+          </details>
+          <label>Driver radio transcript
+            <textarea id="f-radio" rows="2">Front left tyre grip is falling away rapidly, front end washed out.</textarea>
+          </label>
+          <label>Race control message
+            <textarea id="f-control" rows="2">SAFETY CAR DEPLOYED IN SECTOR 3 - TRACK HAZARD</textarea>
+          </label>
+          <button id="evaluate" class="cta">Evaluate Parallel Universes 🏁</button>
+        </div>
+
+        <div class="card result-card">
+          <h2>Counterfactual Verdict</h2>
+          <div id="verdict" class="verdict idle">Awaiting evaluation…</div>
+          <div class="proj-row">
+            <div class="proj box">
+              <span class="plabel">BOX NOW</span>
+              <span class="pval" id="p-box">P—</span>
+              <span class="psub">expected finish</span>
+            </div>
+            <div class="proj stay">
+              <span class="plabel">STAY OUT</span>
+              <span class="pval" id="p-stay">P—</span>
+              <span class="psub">expected finish</span>
+            </div>
+          </div>
+          <div class="kv-grid">
+            <div class="kv"><span class="k">Position gain</span><span class="v" id="v-gain">—</span></div>
+            <div class="kv"><span class="k">Core inference</span><span class="v" id="v-core">—</span></div>
+            <div class="kv"><span class="k">Round trip</span><span class="v" id="v-rt">—</span></div>
+            <div class="kv"><span class="k">Tyre urgency</span><span class="v" id="v-urgency">—</span></div>
+          </div>
+          <div class="sc">
+            <div class="sc-label"><span>Safety-car escalation risk</span><span id="v-sc-num">—</span></div>
+            <div class="sc-track"><div id="v-sc-bar" class="sc-fill"></div></div>
+          </div>
+          <p id="fallback-note" class="note"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── LIVE ── -->
+    <section id="live" class="panel">
+      <div class="card">
+        <div class="live-head">
+          <h2 id="live-session">No live feed</h2>
+          <div class="live-status">
+            <span id="live-dot" class="dot idle"></span>
+            <span id="live-updated">streamer offline — start with <code>python -m api.openf1_streamer</code></span>
+          </div>
+        </div>
+        <div class="snap-row">
+          <div class="snap"><span class="k" id="s-drv">Driver</span><span class="v" id="s-pos">—</span></div>
+          <div class="snap"><span class="k">Tyre age</span><span class="v" id="s-age">—</span></div>
+          <div class="snap"><span class="k">Compound</span><span class="v" id="s-comp">—</span></div>
+          <div class="snap"><span class="k">Laps rem.</span><span class="v" id="s-laps">—</span></div>
+          <div class="snap"><span class="k">Lap</span><span class="v" id="s-lap">—</span></div>
+        </div>
+        <div class="feeds">
+          <p class="feed radio"><span>🎙️</span> <span id="s-radio">—</span></p>
+          <p class="feed control"><span>🚩</span> <span id="s-control">—</span></p>
+        </div>
+        <div id="live-verdict" class="verdict small idle">Engine verdict pending</div>
+      </div>
+
+      <div class="card">
+        <h3 class="chart-title">Rolling counterfactual margin — <span class="red">red bars mark the pit call</span></h3>
+        <canvas id="chart" width="900" height="280"></canvas>
+        <table class="dec-table" id="dec-table">
+          <thead><tr><th>Lap</th><th>Driver</th><th>Call</th><th>Gain</th><th>Inference (ms)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Tessellate AI · FastAPI + CatBoost native <code>.cbm</code> · non-blocking <code>run_in_executor</code> inference</span>
+    <span id="foot-clock"></span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

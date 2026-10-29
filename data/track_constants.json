@@ -1,0 +1,14 @@
+{
+  "Monaco Grand Prix": { "pit_loss": 24.5, "traffic_index": 5 },
+  "British Grand Prix": { "pit_loss": 20.1, "traffic_index": 2 },
+  "Italian Grand Prix": { "pit_loss": 25.1, "traffic_index": 1 },
+  "Spanish Grand Prix": { "pit_loss": 22.4, "traffic_index": 3 },
+  "Austrian Grand Prix": { "pit_loss": 21.8, "traffic_index": 2 },
+  "Belgian Grand Prix": { "pit_loss": 19.6, "traffic_index": 2 },
+  "Singapore Grand Prix": { "pit_loss": 26.3, "traffic_index": 4 },
+  "Japanese Grand Prix": { "pit_loss": 23.7, "traffic_index": 2 },
+  "United States Grand Prix": { "pit_loss": 22.0, "traffic_index": 3 },
+  "Abu Dhabi Grand Prix": { "pit_loss": 23.2, "traffic_index": 3 },
+  "Silverstone Circuit": { "pit_loss": 20.1, "traffic_index": 2 },
+  "Monza Circuit": { "pit_loss": 25.1, "traffic_index": 1 }
+}

@@ -1,0 +1,14 @@
+# Tessellate AI — fixed production framework dependencies
+# FastF1 3.x is required in 2026: the 2.3.x line depends on the retired Ergast
+# API (404) and breaks on current feeds. NOTE: FastF1's upstream live-timing
+# archive now needs an authenticated F1 account; core/pipeline.py --real expects
+# FASTF1_F1_TV_USERNAME / _PASSWORD to be set, else the offline generator runs.
+fastf1>=3.2.0
+catboost
+pandas
+numpy
+fastapi
+uvicorn[standard]
+pydantic
+requests
+httpx
