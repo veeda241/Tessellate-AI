@@ -7,6 +7,8 @@
         "tire_compound",
         "gap_ahead",
         "gap_behind",
+        "pit_loss_s",
+        "rejoin_gap_s",
         "driver_pace_index",
         "will_pit"
     ],
@@ -23,29 +25,31 @@
         "verbose": 100
     },
     "cv_scheme": "GroupKFold(3) by track_id (unseen-circuit)",
-    "holdout_rmse_positions": 2.019,
-    "holdout_mae_positions": 1.48,
-    "baseline_mae_positions": 2.464,
-    "holdout_rmse": 2.019,
-    "holdout_mae": 1.48,
+    "holdout_rmse_positions": 1.144,
+    "holdout_mae_positions": 0.856,
+    "baseline_mae_positions": 3.322,
+    "holdout_rmse": 1.144,
+    "holdout_mae": 0.856,
     "total_training_rows": 12000,
     "n_circuits": 20,
     "feature_importance": {
-        "track_id": 3.321,
-        "laps_remaining": 3.315,
-        "current_position": 66.216,
-        "tire_age": 3.404,
-        "tire_compound": 1.558,
-        "gap_ahead": 0.139,
-        "gap_behind": 1.028,
-        "driver_pace_index": 9.472,
-        "will_pit": 11.547
+        "track_id": 0.841,
+        "laps_remaining": 4.256,
+        "current_position": 45.69,
+        "tire_age": 9.174,
+        "tire_compound": 4.786,
+        "gap_ahead": 0.678,
+        "gap_behind": 1.77,
+        "pit_loss_s": 1.861,
+        "rejoin_gap_s": 1.066,
+        "driver_pace_index": 7.374,
+        "will_pit": 22.504
     },
     "versions": {
         "catboost": "1.2.10",
         "fastf1": "3.9.0",
         "python": "3.11.6"
     },
-    "trained_at": "2026-10-29T18:22:14.612421+00:00",
+    "trained_at": "2026-11-01T00:17:44.502756+00:00",
     "serving": "catboost-native"
 }

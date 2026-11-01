@@ -6,7 +6,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 7,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 2.88,
+  "gap_behind": 5.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -16,8 +18,10 @@
   "laps_remaining": 31,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": -1,
-  "tire_compound": "HARD",
+  "tire_age": 13,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 5.03,
+  "gap_behind": 2.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -28,7 +32,9 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 9,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "HARD",
+  "gap_ahead": 2.1,
+  "gap_behind": 4.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -39,7 +45,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 8,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 3.52,
+  "gap_behind": 5.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -49,8 +57,10 @@
   "laps_remaining": 30,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 0,
-  "tire_compound": "HARD",
+  "tire_age": 14,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 5.7,
+  "gap_behind": 2.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -61,7 +71,9 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 10,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "HARD",
+  "gap_ahead": 2.4,
+  "gap_behind": 4.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -72,7 +84,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 9,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 4.24,
+  "gap_behind": 4.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -82,8 +96,10 @@
   "laps_remaining": 29,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 1,
-  "tire_compound": "HARD",
+  "tire_age": 15,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 6.42,
+  "gap_behind": 1.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -94,7 +110,9 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 11,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "HARD",
+  "gap_ahead": 2.74,
+  "gap_behind": 3.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -105,7 +123,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 10,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 5.05,
+  "gap_behind": 4.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -115,8 +135,10 @@
   "laps_remaining": 28,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 2,
-  "tire_compound": "HARD",
+  "tire_age": 16,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 7.2,
+  "gap_behind": 1.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -127,7 +149,9 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 12,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "HARD",
+  "gap_ahead": 3.1,
+  "gap_behind": 3.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -138,7 +162,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 11,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 5.94,
+  "gap_behind": 3.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -148,8 +174,10 @@
   "laps_remaining": 27,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 3,
-  "tire_compound": "HARD",
+  "tire_age": 17,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 8.03,
+  "gap_behind": 0.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -160,7 +188,9 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 13,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "HARD",
+  "gap_ahead": 3.5,
+  "gap_behind": 2.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -171,7 +201,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 12,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 6.92,
+  "gap_behind": 3.0,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -181,8 +213,10 @@
   "laps_remaining": 26,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 4,
-  "tire_compound": "HARD",
+  "tire_age": 18,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 8.9,
+  "gap_behind": 0.4,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -193,8 +227,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 14,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 3.94,
+  "gap_behind": 2.0,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -204,7 +240,9 @@
   "driver_number": 4,
   "current_position": 4,
   "tire_age": 13,
-  "tire_compound": "MEDIUM",
+  "tire_compound": "SOFT",
+  "gap_ahead": 7.98,
+  "gap_behind": 2.5,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -214,8 +252,10 @@
   "laps_remaining": 25,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 5,
-  "tire_compound": "HARD",
+  "tire_age": 19,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 9.83,
+  "gap_behind": 0.4,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -226,8 +266,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 15,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 4.4,
+  "gap_behind": 1.5,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -238,7 +280,9 @@
   "current_position": 4,
   "tire_age": 14,
   "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "gap_ahead": 9.13,
+  "gap_behind": 2.0,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
  {
@@ -247,8 +291,10 @@
   "laps_remaining": 24,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 6,
-  "tire_compound": "HARD",
+  "tire_age": 20,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 10.8,
+  "gap_behind": 0.4,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -259,8 +305,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 16,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 4.9,
+  "gap_behind": 1.0,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -271,7 +319,9 @@
   "current_position": 4,
   "tire_age": 15,
   "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "gap_ahead": 10.36,
+  "gap_behind": 1.5,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
  {
@@ -280,8 +330,10 @@
   "laps_remaining": 23,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 7,
+  "tire_age": 21,
   "tire_compound": "MEDIUM",
+  "gap_ahead": 11.83,
+  "gap_behind": 0.4,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -292,8 +344,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 17,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 5.42,
+  "gap_behind": 0.5,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -304,6 +358,8 @@
   "current_position": 4,
   "tire_age": 16,
   "tire_compound": "SOFT",
+  "gap_ahead": 11.68,
+  "gap_behind": 1.0,
   "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -313,8 +369,10 @@
   "laps_remaining": 22,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 8,
+  "tire_age": 22,
   "tire_compound": "MEDIUM",
+  "gap_ahead": 12.9,
+  "gap_behind": 0.4,
   "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
@@ -325,8 +383,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 18,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 5.98,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -337,6 +397,8 @@
   "current_position": 4,
   "tire_age": 17,
   "tire_compound": "SOFT",
+  "gap_ahead": 13.08,
+  "gap_behind": 0.5,
   "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -346,9 +408,11 @@
   "laps_remaining": 21,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 9,
+  "tire_age": 23,
   "tire_compound": "MEDIUM",
-  "radio_transcript": "Car is balanced, pace is consistent.",
+  "gap_ahead": 14.03,
+  "gap_behind": 0.4,
+  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": ""
  },
  {
@@ -358,8 +422,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 19,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 6.58,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -370,6 +436,8 @@
   "current_position": 4,
   "tire_age": 18,
   "tire_compound": "SOFT",
+  "gap_ahead": 14.57,
+  "gap_behind": 0.4,
   "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -379,9 +447,11 @@
   "laps_remaining": 20,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 10,
+  "tire_age": 24,
   "tire_compound": "MEDIUM",
-  "radio_transcript": "Car is balanced, pace is consistent.",
+  "gap_ahead": 15.2,
+  "gap_behind": 0.4,
+  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": ""
  },
  {
@@ -391,8 +461,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 20,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 7.2,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -403,6 +475,8 @@
   "current_position": 4,
   "tire_age": 19,
   "tire_compound": "SOFT",
+  "gap_ahead": 16.14,
+  "gap_behind": 0.4,
   "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -412,9 +486,11 @@
   "laps_remaining": 19,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 11,
+  "tire_age": 25,
   "tire_compound": "MEDIUM",
-  "radio_transcript": "Car is balanced, pace is consistent.",
+  "gap_ahead": 16.43,
+  "gap_behind": 0.4,
+  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": ""
  },
  {
@@ -424,8 +500,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 21,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 7.86,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -436,6 +514,8 @@
   "current_position": 4,
   "tire_age": 20,
   "tire_compound": "SOFT",
+  "gap_ahead": 17.8,
+  "gap_behind": 0.4,
   "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": "GREEN FLAG - ALL CLEAR"
  },
@@ -445,9 +525,11 @@
   "laps_remaining": 18,
   "driver_number": 44,
   "current_position": 6,
-  "tire_age": 12,
+  "tire_age": 26,
   "tire_compound": "MEDIUM",
-  "radio_transcript": "Car is balanced, pace is consistent.",
+  "gap_ahead": 17.7,
+  "gap_behind": 0.4,
+  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
   "race_control_text": ""
  },
  {
@@ -457,8 +539,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 22,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Front left tyre grip is falling away rapidly, front end washed out.",
+  "tire_compound": "HARD",
+  "gap_ahead": 8.54,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -469,6 +553,8 @@
   "current_position": 4,
   "tire_age": 21,
   "tire_compound": "SOFT",
+  "gap_ahead": 19.54,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -478,9 +564,11 @@
   "laps_remaining": 17,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 13,
+  "tire_age": 27,
   "tire_compound": "MEDIUM",
-  "radio_transcript": "Car is balanced, pace is consistent.",
+  "gap_ahead": 19.03,
+  "gap_behind": 0.4,
+  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
  {
@@ -490,8 +578,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 23,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 9.26,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -502,6 +592,8 @@
   "current_position": 4,
   "tire_age": 22,
   "tire_compound": "SOFT",
+  "gap_ahead": 21.37,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -511,8 +603,10 @@
   "laps_remaining": 16,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 14,
-  "tire_compound": "SOFT",
+  "tire_age": 28,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 20.4,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
@@ -523,8 +617,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 24,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 10.02,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -535,6 +631,8 @@
   "current_position": 4,
   "tire_age": 23,
   "tire_compound": "SOFT",
+  "gap_ahead": 23.28,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -544,8 +642,10 @@
   "laps_remaining": 15,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 15,
-  "tire_compound": "SOFT",
+  "tire_age": 29,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 21.83,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
@@ -556,8 +656,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 25,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 10.8,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -568,6 +670,8 @@
   "current_position": 4,
   "tire_age": 24,
   "tire_compound": "SOFT",
+  "gap_ahead": 25.28,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -577,8 +681,10 @@
   "laps_remaining": 14,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 16,
-  "tire_compound": "SOFT",
+  "tire_age": 30,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 23.3,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
@@ -589,8 +695,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 26,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 11.62,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -601,6 +709,8 @@
   "current_position": 4,
   "tire_age": 25,
   "tire_compound": "SOFT",
+  "gap_ahead": 27.36,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -610,8 +720,10 @@
   "laps_remaining": 13,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 17,
-  "tire_compound": "SOFT",
+  "tire_age": 31,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 24.83,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
@@ -622,8 +734,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 27,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 12.46,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  },
  {
@@ -634,6 +748,8 @@
   "current_position": 4,
   "tire_age": 26,
   "tire_compound": "SOFT",
+  "gap_ahead": 29.53,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": "SAFETY CAR DEPLOYED - CRASH AT TURN 7, MARSHALS AT SECTOR 3"
  },
@@ -643,8 +759,10 @@
   "laps_remaining": 12,
   "driver_number": 44,
   "current_position": 7,
-  "tire_age": 18,
-  "tire_compound": "SOFT",
+  "tire_age": 32,
+  "tire_compound": "MEDIUM",
+  "gap_ahead": 26.4,
+  "gap_behind": 0.4,
   "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
   "race_control_text": ""
  },
@@ -655,8 +773,10 @@
   "driver_number": 16,
   "current_position": 8,
   "tire_age": 28,
-  "tire_compound": "SOFT",
-  "radio_transcript": "Box this lap, we will lose the place in the pit lane but the tyres are gone.",
+  "tire_compound": "HARD",
+  "gap_ahead": 13.34,
+  "gap_behind": 0.4,
+  "radio_transcript": "Car is balanced, pace is consistent.",
   "race_control_text": ""
  }
 ]

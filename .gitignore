@@ -7,6 +7,11 @@ venv/
 # IDE / agent local cache (never commit)
 .qoder/
 
+# /brag video pipeline (local tooling + rendered artifacts, never commit)
+.brag_src/
+brag-output/
+brag-output-*/
+
 # Generated data assets (reproducible via python -m core.pipeline / core.train)
 data/fastf1_cache/
 data/historical_sc_features.csv
@@ -27,3 +32,7 @@ models/*.onnx
 # Scratch under docs, but KEEP the committed showcase screenshots (PNGs render on GitHub)
 docs/screenshots/*
 !docs/screenshots/*.png
+
+# Hugging Face publish bundle — rebuilt by copying models/ + data/ artifacts into it
+hf_package/*
+!hf_package/example_inference.py

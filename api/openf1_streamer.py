@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 from core.config import DATA_DIR, FIXTURES_DIR
+from core.pipeline import COMPOUND_CLIFF_LAP, COMPOUND_DEGRADATION
 
 # Windows cp1252 consoles cannot render guardrail log emoji — degrade safely instead of crashing
 try:
@@ -23,12 +24,17 @@ FOCUS_DRIVERS = (4, 44, 16)  # NOR, HAM,LEC at Silverstone 2024
 def seed_replay_fixture(fixture_source):
     """Generate the British GP 2024 safety-car window replay if it is not present.
 
-    Frames cover laps 21-40: a pre-SC degradation stretch followed by an SC
-    deployment at lap 35, where the optimal call flips from STAY OUT to BOX.
+    Frames cover laps 21-40: a degradation stretch followed by an SC deployment at
+    lap 35. Each car's gaps are derived from its own tyre wear, so the verdict flips
+    from STAY OUT to BOX once the time lost to the car ahead exceeds Silverstone's
+    pit-lane delta and the rejoin therefore lands in clean air.
     """
     frames = []
     base = {4: 4, 44: 6, 16: 8}
-    stint_start = {4: 14, 44: 22, 16: 12}  # lap each car last boxed -> pre-SC ages differ
+    # lap each car last boxed, and the compound it was fitted then. The compound is fixed
+    # at the stop, not inferred from age, so the three plans run to their own cliff laps
+    # and the replay shows three different right answers on the same lap.
+    stints = {4: (14, "SOFT"), 44: (8, "MEDIUM"), 16: (12, "HARD")}
     for lap in range(21, 41):
         sc_active = lap >= 35
         control = (
@@ -38,20 +44,28 @@ def seed_replay_fixture(fixture_source):
         )
         for number in FOCUS_DRIVERS:
             pos = base[number] + (1 if (sc_active and number == 44) else 0)
-            tire_age = lap - stint_start[number]
-            compound = "SOFT" if tire_age > 13 else ("MEDIUM" if tire_age > 6 else "HARD")
+            start_lap, compound = stints[number]
+            tire_age = lap - start_lap
+            worn = tire_age > COMPOUND_CLIFF_LAP[compound]
             radio = (
                 "Front left tyre grip is falling away rapidly, front end washed out."
-                if tire_age > 13
+                if worn
                 else "Car is balanced, pace is consistent."
             )
-            if sc_active:
+            if sc_active and worn:
                 # Chequered-flag pit lane is free under SC: the fresh-tyre universe is cheap
                 radio = (
                     "Box this lap, we will lose the place in the pit lane but the tyres are gone."
-                    if tire_age > 13
-                    else radio
                 )
+            # The gap ahead is the integral of a driver's own degradation: worn rubber loses
+            # time to the car in front every lap. Once that accumulated loss exceeds the
+            # circuit's pit-lane delta, a stop no longer surrenders the place — the rejoin
+            # lands in clean air. Deriving the gaps this way makes the traffic-after-the-stop
+            # term observable in the replay instead of only in the manual tab.
+            gap_ahead = round(0.8 + COMPOUND_DEGRADATION[compound] * tire_age**2 / 2.0, 2)
+            # ... while a chaser on fresher rubber closes up on you, which is what keeps the
+            # stay-out universe expensive as the stint ages.
+            gap_behind = round(max(0.4, 9.0 - 0.5 * tire_age), 2)
             frames.append(
                 {
                     "session_name": "British Grand Prix 2024 - Race (Replay)",
@@ -61,6 +75,8 @@ def seed_replay_fixture(fixture_source):
                     "current_position": pos,
                     "tire_age": tire_age,
                     "tire_compound": compound,
+                    "gap_ahead": gap_ahead,
+                    "gap_behind": gap_behind,
                     "radio_transcript": radio,
                     "race_control_text": control if number == FOCUS_DRIVERS[0] else "",
                 }
@@ -84,6 +100,8 @@ def post_snapshot(frame):
         "current_position": frame["current_position"],
         "tire_age": frame["tire_age"],
         "tire_compound": frame["tire_compound"],
+        "gap_ahead": frame.get("gap_ahead", 1.0),
+        "gap_behind": frame.get("gap_behind", 1.0),
         "radio_transcript": frame["radio_transcript"],
         "race_control_text": frame["race_control_text"],
     }
@@ -144,6 +162,12 @@ def poll_live_packet(session):
         "current_position": int(latest_lap.get("position") or 10),
         "tire_age": int(latest_lap.get("lap_time", 0) % 20) or 10,
         "tire_compound": "MEDIUM",
+        # OpenF1's free endpoints carry no time intervals, so the rejoin geometry is not
+        # observable live. Flat placeholders keep that visible in the payload instead of
+        # hidden in a .get() default: live traffic adds nothing to the call until a real
+        # interval feed is wired in.
+        "gap_ahead": 1.0,
+        "gap_behind": 1.0,
         "radio_transcript": radio_text,
         "race_control_text": control_text,
     }
@@ -185,12 +209,14 @@ def run_background_poller(live_mode=False):
 
             # Evaluate through the pit wall engine, then write state to the shared bridge
             prediction = post_snapshot(data_packet)
+            rejoin = prediction.get("rejoin_context") or {}
             rolling_decisions.append(
                 {
                     "lap": data_packet["lap_number"],
                     "driver": data_packet["driver_number"],
                     "call": prediction.get("pit_wall_recommendation"),
                     "gain": prediction.get("expected_position_gain"),
+                    "rejoin": rejoin.get("rejoin_gap_s"),
                     "inference_ms": prediction.get("inference_ms"),
                 }
             )

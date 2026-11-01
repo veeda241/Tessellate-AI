@@ -12,19 +12,7 @@ from pydantic import BaseModel, Field
 
 from api.jev_scout import analyze_text
 from core.config import BRIDGE_PATH, DATA_DIR, FRONTEND_DIR, MODELS_DIR
-
-# Feature schema must match the trained matrix exactly (see core/train.py)
-FEATURES = [
-    "track_id",
-    "laps_remaining",
-    "current_position",
-    "tire_age",
-    "tire_compound",
-    "gap_ahead",
-    "gap_behind",
-    "driver_pace_index",
-    "will_pit",
-]
+from core.pipeline import DEFAULT_PIT_LOSS_S, MODEL_FEATURES as FEATURES
 
 # CatBoost predict runs in C++ and releases the GIL, so a thread pool gives
 # genuine parallel execution with zero model-serialization cost per call.
@@ -80,11 +68,12 @@ def compute_model_score(model_instance: CatBoostRegressor, feature_row: dict) ->
     return float(model_instance.predict(frame)[0])
 
 
-def _build_feature_row(request: InferenceRequest, will_pit: int, traffic_index: int = 0) -> dict:
-    # Counterfactual convention (matches training labelling): present the SAME
-    # observed snapshot for both universes and toggle only `will_pit`. The model
-    # internalizes the pit-loss / fresh-tire recovery through the will_pit signal
-    # per circuit, so we must NOT pre-zero tyre age or pre-add traffic here.
+def _build_feature_row(request: InferenceRequest, will_pit: int, pit_loss_s: float) -> dict:
+    # Counterfactual convention (matches training labelling): present the SAME observed
+    # snapshot for both universes and toggle only `will_pit`. Where you rejoin is *state*,
+    # not a decision, so pit_loss_s and rejoin_gap_s are identical in both universes as
+    # well — the tree learns how they interact with the flag. We must NOT pre-zero tyre
+    # age, pre-add pit loss, or shift position for the box universe here.
     return {
         "track_id": request.track_name,
         "laps_remaining": request.laps_remaining,
@@ -93,6 +82,8 @@ def _build_feature_row(request: InferenceRequest, will_pit: int, traffic_index: 
         "tire_compound": request.tire_compound.upper(),
         "gap_ahead": request.gap_ahead,
         "gap_behind": request.gap_behind,
+        "pit_loss_s": pit_loss_s,
+        "rejoin_gap_s": round(request.gap_ahead - pit_loss_s, 2),
         "driver_pace_index": request.driver_pace_index,
         "will_pit": will_pit,
     }
@@ -107,15 +98,15 @@ async def predict_counterfactual(request: InferenceRequest):
 
     track_meta = TRACK_MEMORY.get(request.track_name)
     track_fallback_used = track_meta is None
-    traffic_index = track_meta["traffic_index"] if track_meta else 3
+    pit_loss_s = float(track_meta["pit_loss"]) if track_meta else DEFAULT_PIT_LOSS_S
 
     # Asynchronously process text features concurrently with tree math (Jev AI scout)
     jev_task = asyncio.create_task(
         analyze_text(request.radio_transcript, request.race_control_text)
     )
 
-    universe_box = _build_feature_row(request, will_pit=1, traffic_index=traffic_index)
-    universe_stay = _build_feature_row(request, will_pit=0, traffic_index=traffic_index)
+    universe_box = _build_feature_row(request, will_pit=1, pit_loss_s=pit_loss_s)
+    universe_stay = _build_feature_row(request, will_pit=0, pit_loss_s=pit_loss_s)
 
     started = time.perf_counter()
     try:
@@ -144,6 +135,12 @@ async def predict_counterfactual(request: InferenceRequest):
         },
         "pit_wall_recommendation": optimal_move,
         "expected_position_gain": round(finish_stay - finish_box, 2),
+        # Diagnostics only: the rejoin situation the model was shown. Never re-scored.
+        "rejoin_context": {
+            "pit_loss_s": pit_loss_s,
+            "rejoin_gap_s": round(request.gap_ahead - pit_loss_s, 2),
+            "rejoins_behind_car_ahead": bool(request.gap_ahead < pit_loss_s),
+        },
         "track_fallback_used": track_fallback_used,
         "inference_ms": round(inference_ms, 3),
     }

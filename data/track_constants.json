@@ -1,14 +1,102 @@
 {
-  "Monaco Grand Prix": { "pit_loss": 24.5, "traffic_index": 5 },
-  "British Grand Prix": { "pit_loss": 20.1, "traffic_index": 2 },
-  "Italian Grand Prix": { "pit_loss": 25.1, "traffic_index": 1 },
-  "Spanish Grand Prix": { "pit_loss": 22.4, "traffic_index": 3 },
-  "Austrian Grand Prix": { "pit_loss": 21.8, "traffic_index": 2 },
-  "Belgian Grand Prix": { "pit_loss": 19.6, "traffic_index": 2 },
-  "Singapore Grand Prix": { "pit_loss": 26.3, "traffic_index": 4 },
-  "Japanese Grand Prix": { "pit_loss": 23.7, "traffic_index": 2 },
-  "United States Grand Prix": { "pit_loss": 22.0, "traffic_index": 3 },
-  "Abu Dhabi Grand Prix": { "pit_loss": 23.2, "traffic_index": 3 },
-  "Silverstone Circuit": { "pit_loss": 20.1, "traffic_index": 2 },
-  "Monza Circuit": { "pit_loss": 25.1, "traffic_index": 1 }
+  "Bahrain Grand Prix": {
+    "pit_loss": 22.0,
+    "traffic_index": 3,
+    "total_laps": 57
+  },
+  "Saudi Arabian Grand Prix": {
+    "pit_loss": 21.0,
+    "traffic_index": 3,
+    "total_laps": 50
+  },
+  "Australian Grand Prix": {
+    "pit_loss": 19.5,
+    "traffic_index": 3,
+    "total_laps": 58
+  },
+  "Japanese Grand Prix": {
+    "pit_loss": 20.5,
+    "traffic_index": 3,
+    "total_laps": 53
+  },
+  "Chinese Grand Prix": {
+    "pit_loss": 21.5,
+    "traffic_index": 3,
+    "total_laps": 56
+  },
+  "Miami Grand Prix": {
+    "pit_loss": 21.0,
+    "traffic_index": 4,
+    "total_laps": 57
+  },
+  "Emilia Romagna Grand Prix": {
+    "pit_loss": 21.5,
+    "traffic_index": 3,
+    "total_laps": 63
+  },
+  "Monaco Grand Prix": {
+    "pit_loss": 24.5,
+    "traffic_index": 6,
+    "total_laps": 78
+  },
+  "Canadian Grand Prix": {
+    "pit_loss": 17.0,
+    "traffic_index": 4,
+    "total_laps": 70
+  },
+  "Spanish Grand Prix": {
+    "pit_loss": 19.0,
+    "traffic_index": 3,
+    "total_laps": 66
+  },
+  "Austrian Grand Prix": {
+    "pit_loss": 17.5,
+    "traffic_index": 3,
+    "total_laps": 71
+  },
+  "British Grand Prix": {
+    "pit_loss": 21.5,
+    "traffic_index": 2,
+    "total_laps": 52
+  },
+  "Hungarian Grand Prix": {
+    "pit_loss": 22.0,
+    "traffic_index": 3,
+    "total_laps": 70
+  },
+  "Belgian Grand Prix": {
+    "pit_loss": 18.0,
+    "traffic_index": 2,
+    "total_laps": 44
+  },
+  "Dutch Grand Prix": {
+    "pit_loss": 18.5,
+    "traffic_index": 4,
+    "total_laps": 72
+  },
+  "Italian Grand Prix": {
+    "pit_loss": 21.5,
+    "traffic_index": 3,
+    "total_laps": 53
+  },
+  "Singapore Grand Prix": {
+    "pit_loss": 24.0,
+    "traffic_index": 4,
+    "total_laps": 62
+  },
+  "United States Grand Prix": {
+    "pit_loss": 22.5,
+    "traffic_index": 3,
+    "total_laps": 56
+  },
+  "Mexico Grand Prix": {
+    "pit_loss": 21.0,
+    "traffic_index": 3,
+    "total_laps": 71
+  },
+  "Abu Dhabi Grand Prix": {
+    "pit_loss": 20.0,
+    "traffic_index": 3,
+    "total_laps": 58
+  }
 }

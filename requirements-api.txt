@@ -1,0 +1,10 @@
+# Inference tier only. core/pipeline.py imports fastf1 lazily inside the --real
+# miner, so the serving image never needs the FastF1/matplotlib/sqlalchemy tree.
+catboost==1.2.10
+pandas
+numpy
+fastapi
+uvicorn[standard]
+pydantic
+requests
+huggingface_hub

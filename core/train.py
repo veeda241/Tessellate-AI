@@ -10,6 +10,7 @@ import pandas as pd
 from catboost import CatBoostRegressor, Pool
 
 from core.config import DATA_DIR, MODELS_DIR
+from core.pipeline import MODEL_FEATURES as FEATURES
 
 # Windows cp1252 consoles cannot render guardrail log emoji — degrade safely instead of crashing
 try:
@@ -17,17 +18,6 @@ try:
 except Exception:
     pass
 
-FEATURES = [
-    "track_id",
-    "laps_remaining",
-    "current_position",
-    "tire_age",
-    "tire_compound",
-    "gap_ahead",
-    "gap_behind",
-    "driver_pace_index",
-    "will_pit",
-]
 CAT_FEATURES = ["track_id", "tire_compound"]
 
 CV_PARAMS = dict(iterations=250, learning_rate=0.05, depth=6, loss_function="RMSE", random_seed=42)

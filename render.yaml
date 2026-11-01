@@ -1,0 +1,18 @@
+# Render Blueprint — free tier: Docker runtime, no payment method required.
+# https://render.com/docs/free  ·  plan free = 0.1 CPU / 512 MB RAM, spins down
+# after 15 min idle and wakes on the next request (~1 min cold start).
+#
+# Measured footprint of this app while serving: uvicorn tier 211 MB + replay
+# ingest 91 MB = ~302 MB, so it fits the 512 MB ceiling. If Render ever OOMs the
+# container, drop the ingest process (dashboard Live tab goes quiet) and the
+# server alone sits at ~211 MB.
+services:
+  - type: web
+    name: tessellate-ai
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit

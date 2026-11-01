@@ -2,7 +2,7 @@
 
 > **BOX NOW or STAY OUT?** Tessellate AI answers the pit-wall's hardest question in milliseconds by simulating both parallel universes of a single race moment — and picking the one that finishes higher.
 
-![Python](https://img.shields.io/badge/python-3.11-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-009688) ![CatBoost](https://img.shields.io/badge/CatBoost-native%20.cbm-yellow) ![Latency](https://img.shields.io/badge/inference-~5--15ms-brightgreen) ![Status](https://img.shields.io/badge/status-unofficial%20portfolio-orange)
+![Python](https://img.shields.io/badge/python-3.11-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-009688) ![CatBoost](https://img.shields.io/badge/CatBoost-native%20.cbm-yellow) ![Latency](https://img.shields.io/badge/inference-~5--15ms-brightgreen) ![Status](https://img.shields.io/badge/status-unofficial%20portfolio-orange) [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/Veeda241/tessellate-f1-strategy)
 
 An enterprise-shaped, low-latency (<200 ms) motorsport strategy engine: a split-process pipeline combining a **compiled CatBoost C++ inference layer**, a **non-blocking FastAPI** serving tier, an **isolated live/replay ingest** process, and a **zero-dependency web dashboard** — no build step, no Node, no Streamlit.
 
@@ -29,6 +29,13 @@ python -m core.train             # train CatBoost -> models/strategy_catboost.cb
 python -m uvicorn api.main:app --port 8000     # serves BOTH the API and the dashboard
 ```
 
+Skip the two build steps if you only want to run the server — pull the published weights and circuit memory from the Hub instead:
+
+```powershell
+hf download Veeda241/tessellate-f1-strategy strategy_catboost.cbm model_metadata.json --local-dir models
+hf download Veeda241/tessellate-f1-strategy track_constants.json --local-dir data
+```
+
 Open **http://127.0.0.1:8000** — the dashboard is served by the same process. Swagger UI lives at **/docs**.
 To animate the Live feed tab, start the ingest process in a second terminal: `python -m api.openf1_streamer`.
 
@@ -37,16 +44,18 @@ To animate the Live feed tab, start the ingest process in a second terminal: `py
 | Dimension | Value |
 | --- | --- |
 | Validation scheme | GroupKFold(3), grouped by `track_id` (unseen-circuit) |
-| CV RMSE | **2.02 positions** |
-| CV MAE | **1.48 positions** vs naive baseline **2.46** (~40% reduction) |
+| CV RMSE | **1.14 positions** |
+| CV MAE | **0.86 positions** vs naive baseline **3.32** (~74% reduction) |
 | Training footprint | 12,000 rows · 20 circuits (offline generator) |
 | Core inference latency | ~5–15 ms (target <200 ms) |
 | Serving format | Native C++ CatBoost `.cbm` |
-| Top learned features | current position ~66%, `will_pit` ~12%, `driver_pace_index` ~9.5% |
+| Top learned features | current position ~46%, `will_pit` ~23%, `tire_age` ~9% |
 
 ---
 
 ## 🏗️ System Architecture
+
+> Full walkthrough — module-by-module reference, the counterfactual contract with measured decisions, request lifecycle, use cases, and the honest limitations found in the code — is in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 ```
                   ┌────────────────────────────────────────┐
@@ -88,14 +97,14 @@ To animate the Live feed tab, start the ingest process in a second terminal: `py
 ## 🧠 Model, Features & Evaluation
 
 - **Model**: CatBoost `CatBoostRegressor` (target = finishing position), served as a native compiled C++ `.cbm`. Categoricals (`track_id`, `tire_compound`) handled natively.
-- **Feature schema (9)**: `track_id`, `laps_remaining`, `current_position`, `tire_age`, `tire_compound`, `gap_ahead`, `gap_behind`, `driver_pace_index`, `will_pit`.
+- **Feature schema (11)**: `track_id`, `laps_remaining`, `current_position`, `tire_age`, `tire_compound`, `gap_ahead`, `gap_behind`, `pit_loss_s`, `rejoin_gap_s`, `driver_pace_index`, `will_pit`. The two pit columns are what make the *traffic after the stop* explicit: `pit_loss_s` is the circuit's stationary pit-lane delta and `rejoin_gap_s = gap_ahead − pit_loss_s` says whether the stop hands the place back or lands you in clean air.
 - **Validation — GroupKFold(3) by circuit**: every fold is scored on entirely unseen tracks, so the metric reflects generalization rather than memorizing one circuit's noise.
-- **Metrics** (in `models/model_metadata.json`): CV RMSE ≈ **2.02**, CV MAE ≈ **1.48** vs a naive "predict current position" baseline of **2.46** (~40% reduction).
-- **Behavior check**: the engine correctly **stays out at Monaco** (high pit loss + traffic) and **boxes at Silverstone** on worn Softs — decisions are circuit-aware, not a fixed rule.
+- **Metrics** (in `models/model_metadata.json`): CV RMSE ≈ **1.14**, CV MAE ≈ **0.86** vs a naive "predict current position" baseline of **3.32** (~74% reduction).
+- **Behavior check**: the engine **stays out at Monaco** at every tyre age probed (a 24.5 s pit lane plus a queue that it cannot clear), flips **STAY OUT → BOX at Silverstone between 20 and 24 laps of Soft wear**, and boxes sooner the further the car ahead has escaped. Calls are circuit- and traffic-aware, not a fixed rule.
 
 ## 🔬 Counterfactual Contract & API
 
-Both universes receive the **identical observed state** (position, tyre age, compound, gaps, pace) and differ **only in `will_pit`**. The model internalizes the pit-loss / fresh-tyre recovery through that flag per circuit, so the server does **not** pre-add traffic or zero tyre age at inference time.
+Both universes receive the **identical observed state** (position, tyre age, compound, gaps, pace, pit-lane delta, rejoin gap) and differ **only in `will_pit`**. Where you rejoin is *state*, not a decision, so `pit_loss_s` and `rejoin_gap_s` are the same on both sides and the tree learns how they interact with the flag. The server does **not** pre-add traffic or zero tyre age at inference time — doing so would double-count what the labels already teach.
 
 | Method | Route | Purpose |
 | --- | --- | --- |
@@ -105,11 +114,11 @@ Both universes receive the **identical observed state** (position, tyre age, com
 | `GET` | `/api/tracks` | Circuits held in track memory |
 | `GET` | `/healthz` | Model-loaded flag, version, metrics, track count |
 
-The prediction response carries both projections, the Jev AI indicators (`safety_car_escalation_risk`, `tire_urgency_label`), `expected_position_gain`, and `inference_ms` for latency verification.
+The prediction response carries both projections, the Jev AI indicators (`safety_car_escalation_risk`, `tire_urgency_label`), `expected_position_gain`, a `rejoin_context` block (`pit_loss_s`, `rejoin_gap_s`, `rejoins_behind_car_ahead`) showing the traffic situation the model was shown, and `inference_ms` for latency verification.
 
 ## 🌐 Web Dashboard
 
-A zero-dependency single-page app (vanilla HTML/CSS/JS + a hand-rolled Canvas chart) served by the FastAPI process. Two tabs: **Manual Snapshot Evaluation** (form → verdict banner, twin projection cards, safety-car risk meter, latency) and **Live Pit Wall Feed** (polls `/api/live_state`, animates rolling BOX/STAY-OUT margins as the replay passes the safety-car window).
+A zero-dependency single-page app (vanilla HTML/CSS/JS + a hand-rolled Canvas chart) served by the FastAPI process. Two tabs: **Manual Snapshot Evaluation** (form → verdict banner, twin projection cards, pit-lane delta and rejoin gap with a plain-English read of what the stop costs, safety-car risk meter, latency) and **Live Pit Wall Feed** (polls `/api/live_state`, animates rolling BOX/STAY-OUT margins with a per-frame rejoin column as the replay runs each car's stint into its own tyre cliff).
 
 ## 🏛️ The Five Production Guardrails
 
@@ -125,6 +134,8 @@ A zero-dependency single-page app (vanilla HTML/CSS/JS + a hand-rolled Canvas ch
 
 - **Real telemetry is one flag away, but gated.** The `core.pipeline` FastF1 miner is real, yet in 2026 its upstream live-timing archive requires an authenticated F1 account and the retired Ergast API breaks the older `2.3.x` line. Without that access, `python -m core.pipeline` falls back to an **offline physics-based generator** (20 circuits, tyre-degradation + pit-loss + clean-air dynamics). Feature contract, trainer and serving path are identical — run `python -m core.pipeline --real` on an authenticated machine for genuine multi-season data.
 - **The Jev AI text scout is currently a deterministic keyword prototype** (safety-car / tyre-urgency tiers) exposed behind an **LLM-ready async interface** — it is honest scaffolding, not yet a trained language model.
+- **Read the MAE as physics recovery, not race accuracy.** The rejoin-traffic columns are inputs to the same generator that writes the labels, so most of the step from 1.48 → 0.86 positions is the model being handed mechanisms it previously had to guess at. It is a cleaner, better-validated result *about that data*; it is still not a claim of pit-wall accuracy against a real Sunday.
+- **Live traffic is not observable yet.** OpenF1's free endpoints carry no time intervals, so `gap_ahead`/`gap_behind` are flat placeholders in `--live` mode; the traffic-after-the-stop term only does work in the replay fixture and the manual tab until an interval feed is wired in.
 
 ## 🎯 Built for the F1 Paddock
 
@@ -138,8 +149,9 @@ Tessellate AI is an **independent, unofficial learning project** inspired by the
 
 - Wire a real lightweight classifier/LLM into the Jev AI scout (interface already async & isolated).
 - Historical back-testing harness (evaluate counterfactual calls against actual results).
-- Live WebSocket/MQTT streaming ingest (OpenF1 sponsor tier) for true race-weekend latency.
-- Expand features: gap-traffic graphs, stint-plan optimiser, driver-to-driver pace differentials.
+- Live WebSocket/MQTT streaming ingest (OpenF1 sponsor tier) for true race-weekend latency — and real `gap_ahead`/`gap_behind` intervals to replace the live placeholders.
+- Safety-car pit loss: a deployed SC roughly halves the stationary delta, which is exactly when the rejoin term flips. Needs the SC flag to reach the feature row instead of only the text scout.
+- Expand features: multi-car pit-queue arrival, stint-plan optimiser, driver-to-driver pace differentials.
 
 ## 📁 Repository Layout
 

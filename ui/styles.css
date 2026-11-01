@@ -132,6 +132,7 @@ textarea { resize: vertical; }
 .sc-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--green-soft), var(--amber), var(--red-soft)); transition: width .5s ease; }
 
 .note { color: var(--amber); font-size: 12px; margin: 12px 0 0; min-height: 16px; }
+.note.info { color: var(--muted); margin: 4px 0 12px; min-height: 0; }
 
 /* Live tab */
 .live-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }

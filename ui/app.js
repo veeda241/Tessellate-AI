@@ -1,6 +1,7 @@
 "use strict";
 
 const $ = (id) => document.getElementById(id);
+const signed = (n, dp) => (n > 0 ? "+" : "") + n.toFixed(dp);
 
 /* ── Tabs ── */
 document.querySelectorAll(".tab").forEach((btn) => {
@@ -87,6 +88,16 @@ $("evaluate").addEventListener("click", async () => {
     $("v-sc-num").textContent = risk;
     $("v-sc-bar").style.width = Math.round(risk * 100) + "%";
 
+    const rc = res.rejoin_context || {};
+    const gapTxt = payload.gap_ahead.toFixed(1);
+    $("v-pitloss").textContent = rc.pit_loss_s == null ? "—" : rc.pit_loss_s.toFixed(1) + " s";
+    $("v-rejoin").textContent = rc.rejoin_gap_s == null ? "—" : signed(rc.rejoin_gap_s, 1) + " s";
+    $("rejoin-note").textContent = rc.rejoin_gap_s == null ? "" : (
+      rc.rejoins_behind_car_ahead
+        ? `Gap ahead is ${gapTxt} s, under the ${rc.pit_loss_s.toFixed(1)} s pit loss — the stop rejoins behind that car and its dirty air is priced into BOX NOW.`
+        : `Gap ahead of ${gapTxt} s covers the ${rc.pit_loss_s.toFixed(1)} s pit loss — the stop rejoins in clean air, so no place is surrendered.`
+    );
+
     $("fallback-note").textContent = res.track_fallback_used
       ? "Circuit not in track constants — generic traffic prior applied." : "";
   } catch (e) {
@@ -128,8 +139,9 @@ async function pollLive() {
     const lv = $("live-verdict");
     if (dec.status === "success") {
       const isBox = dec.pit_wall_recommendation === "BOX";
+      const rj = dec.rejoin_context ? ` · rejoin ${signed(dec.rejoin_context.rejoin_gap_s, 1)} s` : "";
       lv.className = "verdict small " + (isBox ? "box" : "stay");
-      lv.textContent = `${isBox ? "BOX" : "STAY OUT"} · gain ${dec.expected_position_gain} positions · ${dec.inference_ms} ms`;
+      lv.textContent = `${isBox ? "BOX" : "STAY OUT"} · gain ${dec.expected_position_gain} positions${rj} · ${dec.inference_ms} ms`;
     } else {
       lv.className = "verdict small idle";
       lv.textContent = "Engine verdict pending — " + (dec.status || "no decision");
@@ -175,7 +187,8 @@ function renderTable(rows) {
     const tr = document.createElement("tr");
     const cls = r.call === "BOX" ? "call-box" : "call-stay";
     tr.innerHTML = `<td>${r.lap}</td><td>#${r.driver}</td><td class="${cls}">${r.call || "—"}</td>` +
-      `<td>${r.gain > 0 ? "+" : ""}${r.gain}</td><td>${r.inference_ms}</td>`;
+      `<td>${r.gain > 0 ? "+" : ""}${r.gain}</td>` +
+      `<td>${r.rejoin == null ? "—" : signed(r.rejoin, 1)}</td><td>${r.inference_ms}</td>`;
     tbody.appendChild(tr);
   });
 }

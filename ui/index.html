@@ -104,7 +104,10 @@
             <div class="kv"><span class="k">Core inference</span><span class="v" id="v-core">—</span></div>
             <div class="kv"><span class="k">Round trip</span><span class="v" id="v-rt">—</span></div>
             <div class="kv"><span class="k">Tyre urgency</span><span class="v" id="v-urgency">—</span></div>
+            <div class="kv"><span class="k">Pit-lane delta</span><span class="v" id="v-pitloss">—</span></div>
+            <div class="kv"><span class="k">Rejoin gap</span><span class="v" id="v-rejoin">—</span></div>
           </div>
+          <p id="rejoin-note" class="note info"></p>
           <div class="sc">
             <div class="sc-label"><span>Safety-car escalation risk</span><span id="v-sc-num">—</span></div>
             <div class="sc-track"><div id="v-sc-bar" class="sc-fill"></div></div>
@@ -142,7 +145,7 @@
         <h3 class="chart-title">Rolling counterfactual margin — <span class="red">red bars mark the pit call</span></h3>
         <canvas id="chart" width="900" height="280"></canvas>
         <table class="dec-table" id="dec-table">
-          <thead><tr><th>Lap</th><th>Driver</th><th>Call</th><th>Gain</th><th>Inference (ms)</th></tr></thead>
+          <thead><tr><th>Lap</th><th>Driver</th><th>Call</th><th>Gain</th><th>Rejoin (s)</th><th>Inference (ms)</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
